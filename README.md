@@ -16,14 +16,14 @@ It implements the following interface:
 
 ## Getting Started
 
-In order to use the GenericHttpClientRepository you need to registrate the library in MauiProgram.cs:
+In order to use GenericHttpClientRepository you need to register the library in MauiProgram.cs:
 
 ```csharp
 builder.Services.AddGenericHttpClientRepository();
 ```
 
 The methods in the library are supposed to be called from one or more service classes, that are typed with the actual domain class. 
-An example from the example folder is shown here:
+An example from the Todo example is shown here:
 
 
 **ITodoService.cs**
@@ -83,7 +83,7 @@ public class TodoService : ITodoService
 ```
 &nbsp;
 
-The Constant.RestUrl comes from a configuration file, Constants.cs:
+The `Constant.RestUrl` comes from a configuration file, *Constants.cs*:
 
 ```csharp
 public static class Constants
@@ -94,17 +94,6 @@ public static class Constants
 ```
 &nbsp;
 > **Remark: It is supposed that the WebApi is either deployed to an webserver with valid TLS certificate or to Microsofts Dev Tunnel.**
-
-
-&nbsp;
-
-## The Example
-
-The example consist of a .NET MAUI Todo app, **MauiApp**,  in a MVVM architecture and with two pages: 
-- TodoListPage, which lists the Todo items and have a button for adding new items
-- TodoItemPage, which acts as an Add/DetailsPage
-
-
 
 &nbsp;
 
