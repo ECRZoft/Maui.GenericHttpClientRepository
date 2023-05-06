@@ -1,0 +1,37 @@
+@port = 7245
+
+GET https://localhost:{{port}}
+
+###
+
+POST https://localhost:{{port}}/todoitems
+Content-Type application/json
+
+{
+  "name": "Walk dog",
+  "notes": "In the rain",
+  "isComplete": false
+}
+
+###
+
+GET https://localhost:{{port}}/todoitems
+
+###
+
+GET https://localhost:{{port}}/todoitems/1
+
+###
+
+PUT https://localhost:{{port}}/todoitems/1
+Content-Type application/json
+
+{
+  "name": "Walk dog",
+  "notes": "In the rain",
+  "isComplete": true
+}
+
+###
+
+DELETE https://localhost:{{port}}/todoitems/1

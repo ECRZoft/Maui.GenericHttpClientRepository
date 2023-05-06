@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="MauiTodoApp.Views.TodoItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:MauiTodoApp.ViewModels"
+    Title="Todo"
+    x:DataType="viewmodel:TodoItemViewModel">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0,10,0,10" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,5,0,5" />
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Margin="20">
+        <Label Text="Name" />
+        <Entry Placeholder="Enter item" Text="{Binding Path=TodoItem.Name}" />
+        <Label Text="Notes" />
+        <Entry Placeholder="Enter notes" Text="{Binding Path=TodoItem.Notes}" />
+        <Label Text="Done" />
+        <Switch IsToggled="{Binding Path=TodoItem.IsComplete}" />
+        <Button Command="{Binding SaveCommand}" Text="Save" />
+        <Button Command="{Binding DeleteCommand}" Text="Delete" />
+        <Button Command="{Binding CancelCommand}" Text="Cancel" />
+    </VerticalStackLayout>
+</ContentPage>

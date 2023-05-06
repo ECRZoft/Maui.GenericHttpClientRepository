@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="MauiTodoApp.Views.TodoListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:MauiTodoApp.Models"
+    xmlns:viewmodel="clr-namespace:MauiTodoApp.ViewModels"
+    Title="Todo"
+    x:DataType="viewmodel:TodoListViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding AddItemCommand}" Text="Add Item">
+            <ToolbarItem.IconImageSource>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="Android, WinUI" Value="plus.png" />
+                </OnPlatform>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <RefreshView
+        Margin="10"
+        Command="{Binding GetItemsCommand}"
+        IsRefreshing="{Binding IsRefreshing}">
+
+        <CollectionView
+            Margin="20"
+            ItemsSource="{Binding TodoItems}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:TodoItem">
+
+                    <Frame Margin="0,5" HeightRequest="60">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoListViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Grid Padding="20,0,0,0" ColumnDefinitions="0.9*, 0.1*">
+                            <Label Text="{Binding Name}" VerticalTextAlignment="Center" />
+                            <Image
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding IsComplete}"
+                                Source="check.png" />
+                        </Grid>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label
+                            Margin="10,25,10,10"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="No data available at this time." />
+                        <Label
+                            FontAttributes="Italic"
+                            FontSize="12"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="Try to pull-to-refresh" />
+                    </StackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+
+        </CollectionView>
+    </RefreshView>
+
+</ContentPage>
