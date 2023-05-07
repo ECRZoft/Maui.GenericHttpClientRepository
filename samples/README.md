@@ -14,7 +14,6 @@ The Mobile client has the following functions:
 - A new Todo item is added when the button with +-icon is clicked, the `Name` and `Notes` is filled and the Save button is clicked.
 - When a Todo item is selected, the `Name`, `Notes` and `IsComplete` can be edited. Click *Save* or *Delete*.
 
-
 &nbsp;
 
 ## ItemWebApi
