@@ -15,7 +15,7 @@ The Mobile client has the following functions:
 - When a Todo item is selected, the `Name`, `Notes` and `IsComplete` can be edited. Click *Save* or *Delete*.
 
 &nbsp;
-
+ 
 ## ItemWebApi
 
 ItemWebApi is an ASP.NET Minimal Api which is build on this Tutorial: [Create a minimal API with ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-7.0&tabs=visual-studio)
