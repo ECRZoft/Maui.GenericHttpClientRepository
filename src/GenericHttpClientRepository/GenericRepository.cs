@@ -1,5 +1,6 @@
 ﻿using GenericHttpClientRepository.Policies;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -28,28 +29,34 @@ public class GenericRepository : IGenericRepository
     #endregion
 
     #region GET
-    public async Task<T> GetAsync<T>(Uri uri, string authToken = "")
+    public async Task<T?> GetAsync<T>(Uri uri, string authToken = "")
     {
         ConfigureHttpClient(authToken);
-        T? items = default;
+
+        T? result = default;
+
         try
         {
-            HttpResponseMessage response = await _clientPolicy.LoggingExponentialHttpRetry.ExecuteAsync(() =>
-            _client.GetAsync(uri));
-
-
+            HttpResponseMessage response = await _client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
-                string jsonContent = await response.Content.ReadAsStringAsync();
-                items = JsonSerializer.Deserialize<T>(jsonContent, _serializerOptions);
+                string content = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(content))
+                {
+                    Debug.WriteLine(@"+++++ No string to deserialize");
+                }
+                else
+                {
+                    result = JsonSerializer.Deserialize<T>(content, _serializerOptions);
+                    Debug.WriteLine(@"+++++ Item(s) successfully received.");
+                }
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError($"%%% ERROR GetAsync<T>() {ex.Message} %%%");
-            throw;
+            Debug.WriteLine(@"----- ERROR {0}", ex.Message);
         }
-        return items!;
+        return result;
     }
     #endregion
 
